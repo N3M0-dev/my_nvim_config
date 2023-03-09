@@ -1,0 +1,142 @@
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+context "not math()"
+snippet template "Basic template" bA
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage[margin=1in,xetex]{geometry}
+\usepackage{listings} 
+\usepackage{xcolor} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newtheorem{definition}{定义}
+\newtheorem{theorem}{定理}
+\newtheorem{proof}{证明}
+\newtheorem{lemma}{引理}
+\lstset{
+  basicstyle=\tt,
+  keywordstyle=\color{purple}\bfseries,
+  identifierstyle=\color{brown!80!black},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  numbers=left,                
+  numberstyle=\small,               
+}
+\title{$1}
+\author{5eqn}
+\date{\today}
+\begin{document}
+\maketitle
+$0
+\end{document}
+endsnippet
+
+context "not math()"
+snippet var "Variable" bA
+\newcommand{\\$1}{$2}
+endsnippet
+
+context "not math()"
+snippet def "Definition" wA
+\begin{definition}
+	$1
+\end{definition}
+$0
+endsnippet
+
+context "not math()"
+snippet 'it(\d)' "Itemize" wrA
+\begin{itemize}
+  \item $1`!p
+for i in range(int(match.group(1))-1):
+	snip += '  \item '`
+\end{itemize}
+$0
+endsnippet
+
+context "not math()"
+snippet theo "Definition" wA
+\begin{theorem}
+$1
+\end{theorem}
+$0
+endsnippet
+
+context "not math()"
+snippet pf "Proof" wA
+\begin{proof}
+$1
+\end{proof}
+$0
+endsnippet
+
+context "not math()"
+snippet lemma "Lemma" wA
+\begin{lemma}
+$1
+\end{lemma}
+$0
+endsnippet
+
+context "not math()"
+snippet beg "begin{} / end{}" bA
+\\begin{$1}
+$2
+\\end{$1}
+$0
+endsnippet
+
+context "not math()"
+snippet cnt "Counter" bA
+\setcounter{section}{$1}
+endsnippet
+
+context "not math()"
+snippet sec "Section" bA
+\section{$1}
+$0
+endsnippet
+
+context "not math()"
+snippet ssec "Sub section" bA
+\subsection{$1}
+$0
+endsnippet
+
+# This is so awful!
+context "not math()"
+snippet code "Code environment" bA
+\begin{lstlisting}[language=$1] 
+$2
+\end{lstlisting}
+endsnippet
+
+context "not math()"
+snippet mk "Math" wA
+$${1}$
+endsnippet
+
+context "not math()"
+snippet dm "Math" wA
+\[
+\begin{aligned}
+  $1
+\end{aligned}
+\]
+$0
+endsnippet
+
+priority 200
+context "not math()"
+snippet ** "bold" iA
+\textbf{$1}
+endsnippet
+
+context "not math()"
+snippet 't(\d)' "task n" brA
+(`!p snip.rv = match.group(1)`)
+endsnippet
+
+# vim:ft=snippets
